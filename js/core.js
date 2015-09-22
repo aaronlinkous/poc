@@ -4,8 +4,10 @@ function change_elems(elem) {
 }
 
 function edit_elem(elem) {
-	$(".elem").removeClass("editing");
-	$(elem).addClass("editing");
+	$(".elem").removeClass("editing").attr("contenteditable", "false");
+	$(elem).addClass("editing").attr("contenteditable", "true")
+
+	$("#canvas").addClass("locked");
 }
 
 function add_elem(type) {
@@ -33,12 +35,14 @@ function activate_elem(elem) {
 		drag: function(event, ui){
 			change_elems(this)
 		}
-	}).resizable({
+	})/*
+.resizable({
 		handles: "ne, se, sw, nw",
 		containment: $containment,
 		minWidth: 28,
 		minHeight: 28
 	});
+*/;
 }
 
 var text_count = 0, img_count = 0;
