@@ -1,0 +1,16 @@
+$font_size: 18px;
+$radius: 3px;
+
+$primary_color: #d42e1d;
+$primary_color_shadow: darken($primary_color, 2.5%);
+$secondary_color: navy;
+$dark_color: #333;
+
+$heading_font_family: "museo-slab", "Helvetica-Neue", Helvetica, Arial, sans-serif;
+$heading_font_weight: 500;
+
+$font_family: "museo-sans", "Helvetica-Neue", Helvetica, Arial, sans-serif;
+$font_weight: 100;
+
+$container_margin: $font_size / 1.5;
+$row_margin: $font_size * 1.5;
