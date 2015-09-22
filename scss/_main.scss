@@ -13,6 +13,18 @@ body {
 	background-color: #eee;
 }
 
+label {
+	display: inline-block;
+	cursor: pointer;
+	height: 18px;
+	width: 18px;
+	border-radius: 18px;
+}
+
+input[type=radio] {
+	display: none;
+}
+
 #canvas {
 	margin: 50px auto;
 	position: relative;
@@ -22,14 +34,13 @@ body {
 	background-color: #fff;
 
 	.elem {
-		border: 1px transparent;
 		padding: 5px;
-
-		background-color: #C4C4C4;
+		border: 1px transparent;
+		height: auto;
 		position: absolute;
 
 		&.selected {
-			outline: 2px solid $selected_color;
+			outline: 2px solid rgba($selected_color, .65);
 		}
 
 		&.editing {

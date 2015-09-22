@@ -11,7 +11,7 @@ function edit_elem(elem) {
 function add_elem(type) {
 	count = type == "text" ? text_count++ : img_count++;
 	editable = type == "text" ? "contenteditable='false'" : "";
-	content = type == "text" ? "Edit Text <span>edit</span>" : "<button></button";
+	content = type == "text" ? "Edit Text" : "<button></button";
 
 	elem = "<div "+editable+" class='elem "+type+"' id='"+type+"-"+count+"' unselectable='on'>"+content+"</div>";
 
@@ -35,7 +35,9 @@ function activate_elem(elem) {
 		}
 	}).resizable({
 		handles: "ne, se, sw, nw",
-		containment: $containment
+		containment: $containment,
+		minWidth: 28,
+		minHeight: 28
 	});
 }
 
@@ -56,6 +58,17 @@ $(document).ready(function(){
 	$("#canvas").on("click", ".edit", function(){
 		activate_elem($(this));
 		edit_elem($(this));
+	});
+
+	//styling
+	$("#text_size").on("input",function(){
+		size = this.value;
+		$(".selected").css("font-size", size+"px");
+	});
+
+	$("input[name='color']").click(function(){
+		color = this.value;
+		$(".selected").css("color", color);
 	});
 
 });
