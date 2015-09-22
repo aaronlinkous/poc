@@ -12,3 +12,57 @@ body {
 	padding: 0;
 	background-color: #eee;
 }
+
+#canvas {
+	margin: 50px auto;
+	position: relative;
+	padding: 30px;
+	height: 400px;
+	width: 400px;
+	background-color: #fff;
+
+	.elem {
+		border: 1px transparent;
+		padding: 5px;
+
+		background-color: #C4C4C4;
+		position: absolute;
+
+		&.selected {
+			outline: 2px solid $selected_color;
+		}
+
+		&.editing {
+			background-color: red;
+			outline-color: rgba($selected_color, .25);
+		}
+	}
+
+	.text {
+		.bold {
+			font-weight: bold;
+		}
+	
+		.italic {
+			font-style: italic;
+		}
+	
+		.underline {
+			text-decoration: underline;
+		}
+	}
+
+	.img {
+		height: 50px;
+		width: 50px;
+	}
+}
+
+#constrained {
+	position: absolute;
+	top: 15px;
+	left: 100px;
+	right: 50px;
+	bottom: 30px;
+	border: 1px solid fuchsia;
+}

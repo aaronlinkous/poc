@@ -4,8 +4,12 @@
 		<link rel="stylesheet" type="text/css" href="css/css.css" media="screen" />
 	</head>
 	<body>
-		<button id="add_text">Add Text</button>
-		<button id="add_img"> Add Image</button>
+		<button class="add_elem" data-type="text" id="add_text">Add Text</button>
+		<button class="add_elem" data-type="img" id="add_img"> Add Image</button>
+
+		<div id="canvas">
+			<div id="constrained"></div>
+		</div>
 
 		<script src="js/jquery.min.js"></script>
 		<script src="js/jquery-ui.min.js"></script>

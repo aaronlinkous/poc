@@ -1,0 +1,24 @@
+.selected {
+	.ui-resizable-handle {
+		position: absolute;
+		font-size: 0.1px;
+		z-index: 99999;
+		display: block;
+		background-color: $selected_color;
+	}
+
+	&.editing .ui-resizable-handle {
+		background-color: rgba($selected_color, .25);
+	}
+}
+
+.ui-resizable-disabled, .ui-resizable-autohide {
+	.ui-resizable-handle, .ui-resizable-handle { 
+		display: none;
+	}
+}
+
+.ui-resizable-se { cursor: se-resize; width: $resize_handle; height: $resize_handle; right: $resize_handle_location; bottom: $resize_handle_location; }
+.ui-resizable-sw { cursor: sw-resize; width: $resize_handle; height: $resize_handle; left: $resize_handle_location; bottom: $resize_handle_location; }
+.ui-resizable-nw { cursor: nw-resize; width: $resize_handle; height: $resize_handle; left: $resize_handle_location; top: $resize_handle_location; }
+.ui-resizable-ne { cursor: ne-resize; width: $resize_handle; height: $resize_handle; right: $resize_handle_location; top: $resize_handle_location;}
