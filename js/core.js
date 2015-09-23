@@ -4,15 +4,23 @@ function change_elems(elem) {
 }
 
 function edit_elem(elem) {
-	editing = 1;
 	elem_id = elem.attr("id").replace("edit-","");
 
-// 	$(elem).addClass("editing").html("Apply");
-
 	$(".elem").removeClass("editing").attr("contenteditable", "false");
-	$("#"+elem_id).addClass("editing").attr("contenteditable", "true");
+	$canvas.toggleClass("locked");
 
-	$canvas.addClass("locked");
+	if(editing == 0) {
+		editing = 1;
+	
+		$(elem).html("Apply");
+	
+		$("#"+elem_id).addClass("editing").attr("contenteditable", "true");
+	
+	} else {
+		editing = 0;
+
+		$(elem).html("Edit");
+	}
 }
 
 function elem_properties(elem) {
@@ -84,16 +92,13 @@ $(document).ready(function(){
 		if(editing == 0) {
 			activate_elem($(this));
 		} else if(!$(this).hasClass("selected")) {
+			//launch modal to say ye or ne
 			alert("change elements? save?")
 		}
 	});
 
 	$containment.on("click", ".elem_edit", function(){
-		if(editing == 0) {
-			edit_elem($(this));
-		} else {
-
-		}
+		edit_elem($(this));
 	});
 
 	//styling
