@@ -35,14 +35,16 @@ function activate_elem(elem) {
 		drag: function(event, ui){
 			change_elems(this)
 		}
-	})/*
-.resizable({
+	});
+
+	if(elem.hasClass("img")) {
+		elem.resizable({
 		handles: "ne, se, sw, nw",
 		containment: $containment,
 		minWidth: 28,
 		minHeight: 28
 	});
-*/;
+	}
 }
 
 var text_count = 0, img_count = 0;
