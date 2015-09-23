@@ -10,12 +10,19 @@ function edit_elem(elem) {
 	$("#canvas").addClass("locked");
 }
 
+function elem_properties(elem) {
+	properties = [elem.position(), elem.width(), elem.height()];
+
+	return properties;
+}
+
 function add_elem(type) {
 	count = type == "text" ? text_count++ : img_count++;
 	editable = type == "text" ? "contenteditable='false'" : "";
-	content = type == "text" ? "Edit Text" : "<button></button";
+	edit = "<div class='elem_edit' id='edit-"+type+"-"+count+"'>edit</div>";
+	content = type == "text" ? "Edit Text" : "<img src='https://goo.gl/1mJdyp' />";
 
-	elem = "<div "+editable+" class='elem "+type+"' id='"+type+"-"+count+"' unselectable='on'>"+content+"</div>";
+	elem = "<div "+editable+" class='elem "+type+"' id='"+type+"-"+count+"' unselectable='on'>"+content+"</div>"+edit;
 
 	$containment.append(elem);
 	activate_elem($("#"+type+"-"+count));
@@ -23,7 +30,7 @@ function add_elem(type) {
 
 function activate_elem(elem) {
 	change_elems(elem);
-	
+
 	elem.draggable({
 		cursor: "move",
 		containment: $containment,
@@ -31,19 +38,28 @@ function activate_elem(elem) {
 		cancel: ".editing",
 		stack: ".elem",
 		snap: true,
-
-		drag: function(event, ui){
+		drag: function(event, ui) {
 			change_elems(this)
+		},
+		stop: function(event, ui) {
+			prop = elem_properties(elem);
+
+			elem_t = prop[0].top - 20 +"px";
+			elem_l = prop[0].left+"px";
+			elem_w = prop[1]+"px";
+			elem_h = prop[2]+"px";
+
+			$("#edit-"+elem.attr("id")).css("left", elem_l).css("top", elem_t);
 		}
 	});
 
 	if(elem.hasClass("img")) {
 		elem.resizable({
-		handles: "ne, se, sw, nw",
-		containment: $containment,
-		minWidth: 28,
-		minHeight: 28
-	});
+			handles: "ne, se, sw, nw",
+			containment: $containment,
+			minWidth: 28,
+			minHeight: 28
+		});
 	}
 }
 
