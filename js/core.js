@@ -4,10 +4,15 @@ function change_elems(elem) {
 }
 
 function edit_elem(elem) {
-	$(".elem").removeClass("editing").attr("contenteditable", "false");
-	$(elem).addClass("editing").attr("contenteditable", "true")
+	editing = 1;
+	elem_id = elem.attr("id").replace("edit-","");
 
-	$("#canvas").addClass("locked");
+// 	$(elem).addClass("editing").html("Apply");
+
+	$(".elem").removeClass("editing").attr("contenteditable", "false");
+	$("#"+elem_id).addClass("editing").attr("contenteditable", "true");
+
+	$canvas.addClass("locked");
 }
 
 function elem_properties(elem) {
@@ -35,7 +40,7 @@ function activate_elem(elem) {
 		cursor: "move",
 		containment: $containment,
 		scroll: false,
-		cancel: ".editing",
+		cancel: ".locked .elem",
 		stack: ".elem",
 		snap: true,
 		drag: function(event, ui) {
@@ -63,8 +68,10 @@ function activate_elem(elem) {
 	}
 }
 
+var editing = 0;
 var text_count = 0, img_count = 0;
 var $containment = $("#constrained");
+var $canvas = $("#canvas");
 
 $(document).ready(function(){
 
@@ -73,13 +80,20 @@ $(document).ready(function(){
 		add_elem(type);
 	});
 
-	$("#canvas").on("click", ".elem", function(){
-		activate_elem($(this));
+	$containment.on("click", ".elem", function(){
+		if(editing == 0) {
+			activate_elem($(this));
+		} else if(!$(this).hasClass("selected")) {
+			alert("change elements? save?")
+		}
 	});
 
-	$("#canvas").on("click", ".edit", function(){
-		activate_elem($(this));
-		edit_elem($(this));
+	$containment.on("click", ".elem_edit", function(){
+		if(editing == 0) {
+			edit_elem($(this));
+		} else {
+
+		}
 	});
 
 	//styling

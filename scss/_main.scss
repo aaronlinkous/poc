@@ -55,6 +55,10 @@ input[type=radio] {
 
 		&.editing {
 			outline-color: rgba($selected_color, .25);
+
+			+ .elem_edit {
+				display: block;
+			}
 		}
 
 		&.ui-draggable-dragging {
