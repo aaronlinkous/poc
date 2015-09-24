@@ -1,6 +1,6 @@
 function change_elems(elem) {
 	$(".elem").removeClass("selected");
-	$(elem).addClass("selected");
+	elem.addClass("selected");
 }
 
 function edit_elem(elem) {
@@ -21,8 +21,8 @@ function edit_elem(elem) {
 		}).resizable({
 			handles: "ne, se, sw, nw",
 			containment: $containment,
-			minWidth: 28,
-			minHeight: 28,
+			minWidth: 18,
+			minHeight: 18,
 			aspectRatio: false
 		});
 	
@@ -35,7 +35,7 @@ function edit_elem(elem) {
 }
 
 function elem_properties(elem) {
-	properties = [elem.position(), elem.width(), elem.height(), elem.css("font-size")];
+	properties = [elem.position(), elem.width(), elem.height(), elem.css("font-size").replace("px","")];
 
 	return properties;
 }
@@ -65,27 +65,20 @@ function activate_elem(elem, newly_created) {
 		snap: true,
 		snapTolerance: 10,
 		drag: function(event, ui) {
-			change_elems(this)
+			change_elems(elem);
 		},
 		stop: function(event, ui) {
-			prop = elem_properties(elem);
-
-			elem_t = prop[0].top - 20 +"px";
-			elem_l = prop[0].left+"px";
-			elem_w = prop[1]+"px";
-			elem_h = prop[2]+"px";
-
-			$("#edit-"+elem.attr("id")).css("left", elem_l).css("top", elem_t);
+			repos_edit(elem);
 		}
 	}).resizable({
 		handles: "ne, se, sw, nw",
 		containment: $containment,
-		minWidth: 28,
-		minHeight: 28,
+		minWidth: 18,
+		minHeight: 18,
 		aspectRatio: true,
 		create: function(event, ui) {
 			prop = elem_properties(elem);
-			$(this).attr("data-orig_w", prop[1]).attr("data-orig_fs", prop[3].replace("px",""));
+			$(this).attr("data-orig_w", prop[1]).attr("data-orig_fs", prop[3]);
 		},
 		resize: function(event, ui) {
 			prop = elem_properties(elem);
@@ -98,20 +91,36 @@ function activate_elem(elem, newly_created) {
 		stop: function(event, ui) {
 			prop = elem_properties(elem);
 			$(this).attr("data-orig_w",  prop[1]);
+			$(this).attr("data-orig_fs",  prop[3]);
+
+			repos_edit(elem);
 			
 		}
 	});
 }
 
+function repos_edit(elem) {
+	prop = elem_properties(elem);
+
+	elem_t = prop[0].top - 20 +"px";
+	elem_l = prop[0].left+"px";
+	elem_w = prop[1]+"px";
+	elem_h = prop[2]+"px";
+
+	$("#edit-"+elem.attr("id")).css("left", elem_l).css("top", elem_t);
+}
+
 var editing = 0;
 var text_count = 0, img_count = 0;
-var $containment = $("#constrained");
+var $containment = $(".contained");
 var $canvas = $("#canvas");
 
 $(document).ready(function(){
+	build();
+
 
 	$(".add_elem").click(function(){
-		type = $(this).data("type");
+		type = $(this).attr("data-type");
 		add_elem(type);
 	});
 
@@ -132,6 +141,13 @@ $(document).ready(function(){
 	$("input[name='color']").click(function(){
 		color = this.value;
 		$(".selected").css("color", color);
+	});
+
+	$("#containment").change(function(){
+		id = $(this).val();
+
+		$(".contained").removeClass("active");
+		$(".contained[data-id='"+id+"']").addClass("active");
 	});
 
 });

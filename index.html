@@ -7,7 +7,11 @@
 		<button class="add_elem" data-type="text" id="add_text">Add Text</button>
 		<button class="add_elem" data-type="img" id="add_img"> Add Image</button>
 
-		<input id="text_size" type="range" min="16" max="75" value="16">
+		<select id="containment">
+			<option value="s" data-pos="15,50,30,100">Small</option>
+			<option value="m" data-pos="10,35,25,95" selected="selected">Medium</option>
+			<option value="l" data-pos="5,40,20,90">Large</option>
+		</select>
 
 		<label style="background-color: red;">
 			<input type="radio" name="color" id="text_red" value="red" class="text_color">
@@ -18,11 +22,12 @@
 		</label>
 
 		<div id="canvas">
-			<div id="constrained"></div>
+
 		</div>
 
 		<script src="js/jquery.min.js"></script>
 		<script src="js/jquery-ui.min.js"></script>
+		<script src="js/build.js"></script>
 		<script src="js/core.js"></script>
 	</body>
 </html>

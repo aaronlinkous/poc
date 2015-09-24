@@ -34,6 +34,7 @@ input[type=radio] {
 	background-color: #fff;
 
 	.elem {
+		transform: translate3d(0,0,0);
 		max-width: 100%;
 		max-height: 100%;
 		overflow: hidden;
@@ -66,7 +67,7 @@ input[type=radio] {
 			}
 		}
 
-		&.ui-draggable-dragging {
+		&.ui-draggable-dragging, &.ui-resizable-resizing {
 			+ .elem_edit {
 				display: none;
 			}
@@ -111,11 +112,12 @@ input[type=radio] {
 	}
 }
 
-#constrained {
+.contained {
+	display: none;
 	position: absolute;
-	top: 15px;
-	left: 100px;
-	right: 50px;
-	bottom: 30px;
 	border: 1px solid fuchsia;
+
+	&.active {
+		display: block;
+	}
 }
