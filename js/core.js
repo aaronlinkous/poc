@@ -64,22 +64,31 @@ function activate_elem(elem) {
 
 			$("#edit-"+elem.attr("id")).css("left", elem_l).css("top", elem_t);
 		}
-	});
+	}).resizable({
+		handles: "ne, se, sw, nw",
+		containment: $containment,
+		minWidth: 28,
+		minHeight: 28,
+		aspectRatio: true,
+		create: function(event, ui) {
+			prop = elem_properties(elem);
+			$(this).attr("data-orig_w", prop[1]).attr("data-orig_font_size", orig_font_size);
+		},
+		resize: function(event, ui) {
+			prop = elem_properties(elem);
+			orig = $(this).attr("data-orig_w");
+			scale = prop[1] / orig;
 
-	if(elem.hasClass("img")) {
-		elem.resizable({
-			handles: "ne, se, sw, nw",
-			containment: $containment,
-			minWidth: 28,
-			minHeight: 28
-		});
-	}
+			$(this).css("font-size", orig_font_size*scale);
+		}
+	});
 }
 
 var editing = 0;
 var text_count = 0, img_count = 0;
 var $containment = $("#constrained");
 var $canvas = $("#canvas");
+var orig_font_size = 16;
 
 $(document).ready(function(){
 
@@ -102,11 +111,6 @@ $(document).ready(function(){
 	});
 
 	//styling
-	$("#text_size").on("input",function(){
-		size = this.value;
-		$(".selected").css("font-size", size+"px");
-	});
-
 	$("input[name='color']").click(function(){
 		color = this.value;
 		$(".selected").css("color", color);
