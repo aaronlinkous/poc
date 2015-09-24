@@ -16,7 +16,11 @@ function edit_elem(elem) {
 		
 		$("#"+elem_id).addClass("editing").attr("contenteditable", "true");
 
-		$("#"+elem_id).draggable("destroy").resizable("destroy").resizable({
+		$("#"+elem_id).draggable("destroy").resizable("destroy");
+
+		$("#"+elem_id).draggable({
+			disabled: true
+		}).resizable({
 			handles: "ne, se, sw, nw",
 			containment: $containment,
 			minWidth: 28,
@@ -33,7 +37,7 @@ function edit_elem(elem) {
 }
 
 function elem_properties(elem) {
-	properties = [elem.position(), elem.width(), elem.height()];
+	properties = [elem.position(), elem.width(), elem.height(), elem.css("font-size")];
 
 	return properties;
 }
@@ -82,14 +86,20 @@ function activate_elem(elem, newly_created) {
 		aspectRatio: true,
 		create: function(event, ui) {
 			prop = elem_properties(elem);
-			$(this).attr("data-orig_w", prop[1]).attr("data-orig_font_size", orig_font_size);
+			$(this).attr("data-orig_w", prop[1]).attr("data-orig_fs", prop[3].replace("px",""));
 		},
 		resize: function(event, ui) {
 			prop = elem_properties(elem);
 			orig = $(this).attr("data-orig_w");
+			orig_fs = $(this).attr("data-orig_fs");
 			scale = prop[1] / orig;
 
-			$(this).css("font-size", orig_font_size*scale);
+			$(this).css("font-size", orig_fs*scale);
+		},
+		stop: function(event, ui) {
+			prop = elem_properties(elem);
+			$(this).attr("data-orig_w",  prop[1]);
+			
 		}
 	});
 }
@@ -98,7 +108,6 @@ var editing = 0;
 var text_count = 0, img_count = 0;
 var $containment = $("#constrained");
 var $canvas = $("#canvas");
-var orig_font_size = 16;
 
 $(document).ready(function(){
 
