@@ -14,9 +14,7 @@ function edit_elem(elem) {
 	
 		$(elem).html("Apply");
 		
-		$("#"+elem_id).addClass("editing").attr("contenteditable", "true");
-
-		$("#"+elem_id).draggable("destroy").resizable("destroy");
+		$("#"+elem_id).addClass("editing").attr("contenteditable", "true").draggable("destroy").resizable("destroy");
 
 		$("#"+elem_id).draggable({
 			disabled: true
@@ -65,6 +63,7 @@ function activate_elem(elem, newly_created) {
 		scroll: false,
 		stack: ".elem",
 		snap: true,
+		snapTolerance: 10,
 		drag: function(event, ui) {
 			change_elems(this)
 		},

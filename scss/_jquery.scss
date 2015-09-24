@@ -8,7 +8,7 @@
 	}
 
 	&.editing .ui-resizable-handle {
-		background-color: rgba($selected_color, .25);
+		background-color: $editing_color;
 	}
 }
 
