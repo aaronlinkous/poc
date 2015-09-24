@@ -13,13 +13,22 @@ function edit_elem(elem) {
 		editing = 1;
 	
 		$(elem).html("Apply");
-	
+		
 		$("#"+elem_id).addClass("editing").attr("contenteditable", "true");
+
+		$("#"+elem_id).draggable("destroy").resizable("destroy").resizable({
+			handles: "ne, se, sw, nw",
+			containment: $containment,
+			minWidth: 28,
+			minHeight: 28,
+			aspectRatio: false
+		});
 	
 	} else {
 		editing = 0;
 
 		$(elem).html("Edit");
+		activate_elem($("#"+elem_id));
 	}
 }
 
@@ -38,17 +47,18 @@ function add_elem(type) {
 	elem = "<div "+editable+" class='elem "+type+"' id='"+type+"-"+count+"' unselectable='on'>"+content+"</div>"+edit;
 
 	$containment.append(elem);
-	activate_elem($("#"+type+"-"+count));
+	activate_elem($("#"+type+"-"+count), true);
 }
 
-function activate_elem(elem) {
+function activate_elem(elem, newly_created) {
 	change_elems(elem);
+
+	if(!newly_created) elem.draggable("destroy").resizable("destroy");
 
 	elem.draggable({
 		cursor: "move",
 		containment: $containment,
 		scroll: false,
-		cancel: ".locked .elem",
 		stack: ".elem",
 		snap: true,
 		drag: function(event, ui) {
