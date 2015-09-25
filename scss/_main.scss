@@ -72,6 +72,16 @@ input[type=radio] {
 				display: none;
 			}
 		}
+
+		&.for_cancel {
+			display: none;
+		}
+
+		&.cloned {
+			outline: none;
+			overflow: visible;
+			opacity: .10;
+		}
 	}
 
 	.text {
@@ -120,4 +130,9 @@ input[type=radio] {
 	&.active {
 		display: block;
 	}
+}
+
+#containment {
+	position: absolute;
+	background: rgba(red, .5);
 }

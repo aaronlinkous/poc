@@ -10,6 +10,10 @@
 	&.editing .ui-resizable-handle {
 		background-color: $editing_color;
 	}
+
+	&.cloned .ui-resizable-handle {
+		display: none !important;
+	}
 }
 
 .ui-resizable-disabled, .ui-resizable-autohide {

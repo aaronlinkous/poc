@@ -7,7 +7,7 @@
 		<button class="add_elem" data-type="text" id="add_text">Add Text</button>
 		<button class="add_elem" data-type="img" id="add_img"> Add Image</button>
 
-		<select id="containment">
+		<select id="containment_boxes">
 			<option value="s" data-pos="15,50,30,100">Small</option>
 			<option value="m" data-pos="10,35,25,95" selected="selected">Medium</option>
 			<option value="l" data-pos="5,40,20,90">Large</option>
@@ -22,12 +22,13 @@
 		</label>
 
 		<div id="canvas">
-
+			<div id="fake_containment"></div>
+			<div id="containment"></div>
 		</div>
 
 		<script src="js/jquery.min.js"></script>
 		<script src="js/jquery-ui.min.js"></script>
-		<script src="js/build.js"></script>
+		<script src="js/ui.js"></script>
 		<script src="js/core.js"></script>
 	</body>
 </html>
